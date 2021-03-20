@@ -1,0 +1,17 @@
+server {
+    listen 3100 default_server ssl;
+
+    include /etc/nginx/includes/server_params.conf;
+    include /etc/nginx/includes/ssl_params.conf;
+    include /etc/nginx/includes/proxy_params.conf;
+
+    ssl_certificate /ssl/%%certfile%%;
+    ssl_certificate_key /ssl/%%keyfile%%;
+
+    ssl_client_certificate %%cafile%%;
+    ssl_verify_client on;
+
+    location / {
+    	proxy_pass http://backend;
+    }
+}

@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Loki
+# Runs Loki
+# ==============================================================================
+
+bashio::log.info 'Starting Loki...'
+loki_config='/etc/loki/default-config.yaml'
+
+if bashio::config.exists 'config_path'; then
+  loki_config=$(bashio::config 'config_path')
+  bashio::log.info "Using config at ${loki_config}"
+else
+  bashio::log.info "Using default config"
+fi
+
+case "$(bashio::config 'log_level')" in \
+  error)	log_level='error' ;; \
+  warning)	log_level='warn' ;; \
+  debug)	log_level='debug' ;; \
+  *)		log_level='info' ;; \
+esac;
+bashio::log.info "Loki log level set to ${log_level}"
+
+bashio::log.info "Handing over control to Loki..."
+loki \
+  -config.file=${loki_config} \
+  -server.http-listen-port=80 \
+  -log.level=${log_level}
