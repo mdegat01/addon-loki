@@ -127,3 +127,49 @@ jobs:
             BUILD_REF=${{ github.sha }}
             BUILD_REPOSITORY=${{ github.repository }}
             BUILD_VERSION=${{ needs.information.outputs.version }}
+  publish-edge:
+    name: 📢 Publish to edge repository
+    if: needs.information.outputs.environment == 'edge'
+    needs:
+      - information
+      - deploy
+    environment:
+      name: ${{ needs.information.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Dispatch repository updater update signal
+        uses: peter-evans/repository-dispatch@v1.1.3
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          repository: mdegat01/hassio-addons-edge
+          event-type: update
+          client-payload: >
+            {
+              "addon": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }}",
+              "repository": "${{ github.repository }}",
+              "version": "${{ needs.information.outputs.version }}"
+            }
+  publish-stable:
+    name: 📢 Publish to stable repository
+    if: needs.information.outputs.environment == 'stable'
+    needs:
+      - information
+      - deploy
+    environment:
+      name: ${{ needs.information.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Dispatch repository updater update signal
+        uses: peter-evans/repository-dispatch@v1.1.3
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          repository: mdegat01/hassio-addons
+          event-type: update
+          client-payload: >
+            {
+              "addon": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }}",
+              "repository": "${{ github.repository }}",
+              "version": "${{ github.event.release.tag_name }}"
+            }
