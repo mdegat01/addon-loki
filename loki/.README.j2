@@ -16,7 +16,7 @@
 
 {% set repository = namespace(url='https%3A//github.com/mdegat01/hassio-addons', slug='39bd2704') %}
 {% if channel == "edge" %}
-{% set repository.url = ns.url + '-edge' %}
+{% set repository.url = repository.url + '-edge' %}
 {% set repository.slug = 'edge-slug' %}
 ## WARNING! THIS IS AN EDGE REPOSITORY
 
