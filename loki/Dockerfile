@@ -21,7 +21,8 @@ RUN set -eux; \
     unzip /tmp/loki.zip -d /usr/bin; \
     mv /usr/bin/loki-linux-${BINARCH} /usr/bin/loki; \
     chmod a+x /usr/bin/loki; \
-    loki -version;
+    loki -version; \
+    rm -f /tmp/loki.zip;
 
 # add Nginx
 # hadolint ignore=DL3009
