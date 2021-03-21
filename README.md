@@ -1,99 +1,94 @@
 # Home Assistant Add-on: Loki
 
-_Like Prometheus, but for logs!_
+[![GitHub Release][releases-shield]][releases]
+![Project Stage][project-stage-shield]
+[![License][license-shield]](LICENSE.md)
 
-⚠ **Pre-Alpha Stage** - If you stumbled across this, it's in a very early stage.
-Expect issues and things may change at any time.
+![Supports aarch64 Architecture][aarch64-shield]
+![Supports amd64 Architecture][amd64-shield]
+![Supports armhf Architecture][armhf-shield]
+![Supports armv7 Architecture][armv7-shield]
+![Supports i386 Architecture][i386-shield]
+
+[![Github Actions][github-actions-shield]][github-actions]
+![Project Maintenance][maintenance-shield]
+[![GitHub Activity][commits-shield]][commits]
 
 [![Open your Home Assistant instance and show the add add-on repository dialog
 with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons)
 [![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki)
+
+_Like Prometheus, but for logs!_
+
+## About
 
 [Grafana Loki](https://grafana.com/oss/loki/) is a horizontally-scalable,
 highly-available, multi-tenant log aggregation system inspired by Prometheus. It
 is designed to be very cost effective and easy to operate. It does not index the
 contents of the logs, but rather a set of labels for each log stream.
 
-## PLG Stack (Promtail, Loki and Grafana)
+## Support
 
-Loki isn't a standalone application, it actually doesn't do anything until you
-set up another utility to send logs to it. It's job is to receive logs, index
-them, and make them available to analysis tools such as Grafana. Loki typically
-expects to be deployed in the full PLG stack:
+Got questions?
 
-- Promtail to process and ship logs
-- Loki to aggregate and index them
-- Grafana to visualize and monitor them
+You have several ways to get them answered:
 
-### Promtail
+- The Home Assistant [Community Forum][forum]. I am
+  [CentralCommand][forum-centralcommand] there.
+- The Home Assistant [Discord Chat Server][discord-ha]. Use the #add-ons channel,
+  I am CentralCommand#0913 there.
 
-Promtail is also made by Grafana, its only job is to scrape logs and send them
-to Loki. The easiest way to get it set up is to install the
-[Promtail add-on](https://github.com/mdegat01/hassio-addons/tree/main/promtail)
-in this same repository.
+You could also [open an issue here][issue] on GitHub.
 
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_promtail)
+## Authors & contributors
 
-This isn't the only way to get logs into Loki though. You may want to deploy
-Promtail yourself to ship logs from other systems, you can find installation
-instructions for that [here](https://grafana.com/docs/loki/latest/clients/promtail/installation/).
+The original setup of this repository is by [Mike Degatano][mdegat01].
 
-Other clients besides Promtail can also be configured to ship their logs to
-Loki. The list of supported clients and how to set them up can be found
-[here](https://grafana.com/docs/loki/latest/clients/)
+For a full list of all authors and contributors,
+check [the contributor's page][contributors].
 
-### Grafana
+## License
 
-Grafana's flagship product is their [analysis and visualization tool](https://grafana.com/oss/grafana/)
-and it is very easy to connect that to Loki (as you'd likely expect). They have
-a guide on how to connect the two [here](https://grafana.com/docs/loki/latest/getting-started/grafana/).
+MIT License
 
-The easiest way to install Grafana is to use the
-[Grafana community add-on](https://github.com/hassio-addons/addon-grafana). From
-there you can follow the guide above to add Loki as a data source. When prompted
-for Loki's URL in the Grafana add-on, use `http://39bd2704-loki:3100` (or
-`https://39bd2704-loki:3100` if you enabled SSL).
+Copyright (c) 2021 mdegat01
 
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grafana)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-### LogCLI
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Not required, but if you want to be able to interface with Loki via the
-commandline for testing or scripting purposes you can set up
-[LogCLI](https://grafana.com/docs/loki/latest/getting-started/logcli/). This
-will then let you query Loki using [LogQL](https://grafana.com/docs/loki/latest/logql/).
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-To make LogCLI accessible in the SSH add-ons you can set this install script
-to run on startup of the add-on:
-
-```bash
-#!/bin/bash
-
-# Set up LogCLI (not available in alpine linux)
-# On 2.1.0 (see https://github.com/grafana/loki/releases )
-VERSION=2.1.0
-
-APKARCH="$(apk --print-arch)"
-case "$APKARCH" in
-  x86_64)  BINARCH='amd64' ;;
-  armhf)   BINARCH='arm' ;;
-  armv7)   BINARCH='arm' ;;
-  aarch64) BINARCH='arm64' ;;
-  *) echo >&2 "error: unsupported architecture ($APKARCH)"; exit 1 ;;
-esac
-
-curl -J -L -o /tmp/logcli.zip "https://github.com/grafana/loki/releases/download/v${VERSION}/logcli-linux-${BINARCH}.zip"
-unzip /tmp/logcli.zip -d /usr/bin
-mv "/usr/bin/logcli-linux-${BINARCH}" /usr/bin/logcli
-chmod a+x /usr/bin/logcli
-rm -f /tmp/logcli.zip
-```
-
-You also need to add the following to your `.bash_profile` or `.zshrc` file:
-
-```bash
-export LOKI_ADDR=http://39bd2704-loki:3100
-```
-
-Switch to `https` if you enabled SSL. The LogCLI doc has the full list of
-possible exports you may need depending on how you deployed Loki.
+[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
+[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[commits-shield]: https://img.shields.io/github/commit-activity/y/mdegat01/addon-loki.svg
+[commits]: https://github.com/mdegat01/addon-loki/commits/main
+[contributors]: https://github.com/mdegat01/addon-loki/graphs/contributors
+[discord-ha]: https://discord.gg/c5DvZ4e
+[docs]: https://github.com/mdegat01/addon-loki/blob/main/loki/DOCS.md
+[forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
+[forum]: https://community.home-assistant.io?u=CentralCommand
+[mdegat01]: https://github.com/mdegat01
+[github-actions-shield]: https://github.com/mdegat01/addon-loki/workflows/CI/badge.svg
+[github-actions]: https://github.com/mdegat01/addon-loki/actions
+[i386-shield]: https://img.shields.io/badge/i386-no-red.svg
+[issue]: https://github.com/mdegat01/addon-loki/issues
+[license-shield]: https://img.shields.io/github/license/mdegat01/addon-loki.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.sv
+[releases-shield]: https://img.shields.io/github/release/mdegat01/addon-loki.svg
+[releases]: https://github.com/mdegat01/addon-loki/releases
