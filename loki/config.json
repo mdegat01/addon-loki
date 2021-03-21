@@ -1,14 +1,11 @@
 {
   "name": "Loki",
   "url": "https://github.com/mdegat01/addon-loki",
-  "version": "0.8",
+  "version": "0.9",
   "slug": "loki",
-  "ingress": false,
-  "ingress_port": 0,
   "arch": ["aarch64", "amd64", "armv7"],
   "description": "Loki for Home Assistant",
   "startup": "system",
-  "boot": "manual",
   "map": ["share", "ssl"],
   "ports": {
     "3100/tcp": null

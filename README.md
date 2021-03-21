@@ -2,10 +2,15 @@
 
 _Like Prometheus, but for logs!_
 
-⚠ **Pre-Alpha Stage** - If you stumbled across this, it's in a very early stage. Expect issues and things may change at any time.
+⚠ **Pre-Alpha Stage** - If you stumbled across this, it's in a very early stage.
+Expect issues and things may change at any time.
+
+<!-- markdownlint-disable line-length -->
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons)
 [![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki)
+
+<!-- markdownlint-enable line-length -->
 
 [Grafana Loki](https://grafana.com/oss/loki/) is a horizontally-scalable,
 highly-available, multi-tenant log aggregation system inspired by Prometheus. It
