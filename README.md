@@ -15,14 +15,14 @@
 [![GitHub Activity][commits-shield]][commits]
 
 [![Open your Home Assistant instance and show the add add-on repository dialog
-with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons)
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki)
+with a specific repository URL pre-filled.][add-repo-shield]][add-repo]
+[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.][add-addon-shield]][add-addon]
 
 _Like Prometheus, but for logs!_
 
 ## About
 
-[Grafana Loki](https://grafana.com/oss/loki/) is a horizontally-scalable,
+[Grafana Loki][loki] is a horizontally-scalable,
 highly-available, multi-tenant log aggregation system inspired by Prometheus. It
 is designed to be very cost effective and easy to operate. It does not index the
 contents of the logs, but rather a set of labels for each log stream.
@@ -72,6 +72,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[add-addon-shield]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[add-addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki
+[add-repo-shield]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
+[add-repo]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
@@ -82,6 +86,7 @@ SOFTWARE.
 [docs]: https://github.com/mdegat01/addon-loki/blob/main/loki/DOCS.md
 [forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
 [forum]: https://community.home-assistant.io?u=CentralCommand
+[loki]: https://grafana.com/oss/loki/
 [mdegat01]: https://github.com/mdegat01
 [github-actions-shield]: https://github.com/mdegat01/addon-loki/workflows/CI/badge.svg
 [github-actions]: https://github.com/mdegat01/addon-loki/actions
@@ -89,6 +94,6 @@ SOFTWARE.
 [issue]: https://github.com/mdegat01/addon-loki/issues
 [license-shield]: https://img.shields.io/github/license/mdegat01/addon-loki.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.sv
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
 [releases-shield]: https://img.shields.io/github/release/mdegat01/addon-loki.svg
 [releases]: https://github.com/mdegat01/addon-loki/releases

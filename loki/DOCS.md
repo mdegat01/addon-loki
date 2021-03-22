@@ -5,11 +5,11 @@
 First add the repository to the add-on store (`https://github.com/mdegat01/hassio-addons`):
 
 [![Open your Home Assistant instance and show the add add-on repository dialog
-with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons)
+with a specific repository URL pre-filled.][add-repo-shield]][add-repo]
 
 Then find Loki in the store and click install:
 
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki)
+[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.][add-addon-shield]][add-addon]
 
 ## Default Setup
 
@@ -65,13 +65,12 @@ connect to Loki (mTLS).
 ### Option: `config_path`
 
 Absolute path to a custom config file for Loki. By default this addon will run
-Loki using the config file [here](https://github.com/mdegat01/hassio-addons/blob/main/loki/rootfs/etc/loki/default-config.yaml).
-If you would prefer different options then you can create your own config file
-to use instead and provide the path to it.
+Loki using the config file [here][addon-default-config]. If you would prefer different
+options then you can create your own config file to use instead and provide the
+path to it.
 
-Review the [documentation](https://grafana.com/docs/loki/latest/configuration/)
-to learn about creating a config file for Loki. You can also see examples
-[here](https://grafana.com/docs/loki/latest/configuration/examples/).
+Review the [documentation][loki-doc] to learn about creating a config file for
+Loki. You can also see examples [here][loki-doc-examples].
 
 **Note**: `http_listen_port` and `log_level` are set by the add-on via CLI
 params so they cannot be changed. Everything else can be configured in your file.
@@ -116,39 +115,35 @@ in the full PLG stack:
 
 Promtail is also made by Grafana, its only job is to scrape logs and send them
 to Loki. The easiest way to get it set up is to install the
-[Promtail add-on](https://github.com/mdegat01/hassio-addons/tree/main/promtail)
-in this same repository.
+Promtail add-on in this same repository.
 
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_promtail)
+[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.][add-addon-shield]][add-addon-promtail]
 
 This isn't the only way to get logs into Loki though. You may want to deploy
 Promtail yourself to ship logs from other systems, you can find installation
-instructions for that [here](https://grafana.com/docs/loki/latest/clients/promtail/installation/).
+instructions for that [here][promtail-doc-installation].
 
 Other clients besides Promtail can also be configured to ship their logs to
-Loki. The list of supported clients and how to set them up can be found
-[here](https://grafana.com/docs/loki/latest/clients/)
+Loki. The list of supported clients and how to set them up can be found [here][loki-doc-clients]
 
 ### Grafana
 
-Grafana's flagship product is their [analysis and visualization tool](https://grafana.com/oss/grafana/)
+Grafana's flagship product is their [analysis and visualization tool][grafana]
 and it is very easy to connect that to Loki (as you'd likely expect). They have
-a guide on how to connect the two [here](https://grafana.com/docs/loki/latest/getting-started/grafana/).
+a guide on how to connect the two [here][loki-in-grafana].
 
 The easiest way to install Grafana is to use the
-[Grafana community add-on](https://github.com/hassio-addons/addon-grafana). From
-there you can follow the guide above to add Loki as a data source. When prompted
-for Loki's URL in the Grafana add-on, use `http://39bd2704-loki:3100` (or
-`https://39bd2704-loki:3100` if you enabled SSL).
+Grafana community add-on. From there you can follow the guide above to add Loki
+as a data source. When prompted for Loki's URL in the Grafana add-on, use `http://39bd2704-loki:3100`
+(or `https://39bd2704-loki:3100` if you enabled SSL).
 
-[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grafana)
+[![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.][add-addon-shield]][add-addon-grafana]
 
 ### LogCLI
 
 Not required, but if you want to be able to interface with Loki via the
-commandline for testing or scripting purposes you can set up
-[LogCLI](https://grafana.com/docs/loki/latest/getting-started/logcli/). This
-will then let you query Loki using [LogQL](https://grafana.com/docs/loki/latest/logql/).
+commandline for testing or scripting purposes you can set up [LogCLI][logcli].
+This will then let you query Loki using [LogQL][logql].
 
 To make LogCLI accessible in the SSH add-ons you can set this install script
 to run on startup of the add-on:
@@ -242,11 +237,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+[add-addon-shield]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[add-addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_loki
+[add-addon-grafana]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_grafana
+[add-addon-promtail]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=39bd2704_promtail
+[add-repo-shield]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
+[add-repo]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmdegat01%2Fhassio-addons
+[addon-default-config]: https://github.com/mdegat01/addon-loki/blob/main/loki/rootfs/etc/loki/default-config.yaml
 [contributors]: https://github.com/mdegat01/addon-loki/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
 [forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
 [forum]: https://community.home-assistant.io?u=CentralCommand
+[grafana]: https://grafana.com/oss/grafana/
 [issue]: https://github.com/mdegat01/addon-loki/issues
+[logcli]: https://grafana.com/docs/loki/latest/getting-started/logcli/
+[logql]: https://grafana.com/docs/loki/latest/logql/
+[loki-doc]: https://grafana.com/docs/loki/latest/configuration/
+[loki-doc-clients]: https://grafana.com/docs/loki/latest/clients/
+[loki-doc-examples]: https://grafana.com/docs/loki/latest/configuration/examples/
+[loki-in-grafana]: https://grafana.com/docs/loki/latest/getting-started/grafana
 [mdegat01]: https://github.com/mdegat01
+[promtail-doc-installation]: https://grafana.com/docs/loki/latest/clients/promtail/installation/
 [releases]: https://github.com/mdegat01/addon-loki/releases
 [semver]: http://semver.org/spec/v2.0.0
