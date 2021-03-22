@@ -14,18 +14,18 @@
 ![Project Maintenance][maintenance-shield]
 [![GitHub Activity][commits-shield]][commits]
 
+_Like Prometheus, but for logs!_
+
 [![Open your Home Assistant instance and show the add add-on repository dialog
 with a specific repository URL pre-filled.][add-repo-shield]][add-repo]
 [![Open your Home Assistant instance and show the dashboard of a Supervisor add-on.][add-addon-shield]][add-addon]
 
-_Like Prometheus, but for logs!_
-
 ## About
 
-[Grafana Loki][loki] is a horizontally-scalable,
-highly-available, multi-tenant log aggregation system inspired by Prometheus. It
-is designed to be very cost effective and easy to operate. It does not index the
-contents of the logs, but rather a set of labels for each log stream.
+[Grafana Loki][loki] is a horizontally-scalable, highly-available, multi-tenant
+log aggregation system inspired by Prometheus. It is designed to be very cost
+effective and easy to operate. It does not index the contents of the logs, but
+rather a set of labels for each log stream.
 
 ## Support
 
