@@ -13,6 +13,7 @@
 [![Github Actions][github-actions-shield]][github-actions]
 ![Project Maintenance][maintenance-shield]
 [![GitHub Activity][commits-shield]][commits]
+[![Community Forum][forum-shield]][forum]
 
 _Like Prometheus, but for logs!_
 
@@ -83,8 +84,8 @@ SOFTWARE.
 [commits]: https://github.com/mdegat01/addon-loki/commits/main
 [contributors]: https://github.com/mdegat01/addon-loki/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
-[docs]: https://github.com/mdegat01/addon-loki/blob/main/loki/DOCS.md
 [forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
+[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
 [forum]: https://community.home-assistant.io?u=CentralCommand
 [loki]: https://grafana.com/oss/loki/
 [mdegat01]: https://github.com/mdegat01
