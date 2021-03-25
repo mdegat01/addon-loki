@@ -70,7 +70,9 @@ options then you can create your own config file to use instead and provide the
 path to it.
 
 Review the [documentation][loki-doc] to learn about creating a config file for
-Loki. You can also see examples [here][loki-doc-examples].
+Loki. You can also see examples [here][loki-doc-examples]. I would also strongly
+recommend reading the [Loki best practices][loki-doc-best-practices] guide before
+proceeding with a custom config.
 
 **Note**: `http_listen_port` and `log_level` are set by the add-on via CLI
 params so they cannot be changed. Everything else can be configured in your file.
@@ -253,6 +255,7 @@ SOFTWARE.
 [logcli]: https://grafana.com/docs/loki/latest/getting-started/logcli/
 [logql]: https://grafana.com/docs/loki/latest/logql/
 [loki-doc]: https://grafana.com/docs/loki/latest/configuration/
+[loki-doc-best-practices]: https://grafana.com/docs/loki/latest/best-practices/
 [loki-doc-clients]: https://grafana.com/docs/loki/latest/clients/
 [loki-doc-examples]: https://grafana.com/docs/loki/latest/configuration/examples/
 [loki-in-grafana]: https://grafana.com/docs/loki/latest/getting-started/grafana
