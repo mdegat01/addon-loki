@@ -86,7 +86,7 @@ SOFTWARE.
 [discord-ha]: https://discord.gg/c5DvZ4e
 [forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
-[forum]: https://community.home-assistant.io?u=CentralCommand
+[forum]: https://community.home-assistant.io/t/home-assistant-add-on-loki/293731?u=CentralCommand
 [loki]: https://grafana.com/oss/loki/
 [mdegat01]: https://github.com/mdegat01
 [github-actions-shield]: https://github.com/mdegat01/addon-loki/workflows/CI/badge.svg
@@ -95,6 +95,6 @@ SOFTWARE.
 [issue]: https://github.com/mdegat01/addon-loki/issues
 [license-shield]: https://img.shields.io/github/license/mdegat01/addon-loki.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [releases-shield]: https://img.shields.io/github/release/mdegat01/addon-loki.svg
 [releases]: https://github.com/mdegat01/addon-loki/releases
