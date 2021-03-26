@@ -9,24 +9,24 @@ bashio::log.info 'Starting Loki...'
 loki_config='/etc/loki/default-config.yaml'
 
 if bashio::config.exists 'config_path'; then
-  loki_config=$(bashio::config 'config_path')
-  bashio::log.info "Using config at ${loki_config}"
+    loki_config=$(bashio::config 'config_path')
+    bashio::log.info "Using config at ${loki_config}"
 else
-  bashio::log.info "Using default config"
+    bashio::log.info "Using default config"
 fi
 
 case "$(bashio::config 'log_level')" in \
-  error)	log_level='error' ;; \
-  warning)	log_level='warn' ;; \
-  debug)	log_level='debug' ;; \
-  *)		log_level='info' ;; \
+    error)	log_level='error' ;; \
+    warning)	log_level='warn' ;; \
+    debug)	log_level='debug' ;; \
+    *)		log_level='info' ;; \
 esac;
 bashio::log.info "Loki log level set to ${log_level}"
 
 loki_args=("-config.file=${loki_config}" "-server.http-listen-port=80" "-log.level=${log_level}")
 if [ "${log_level}" == "debug" ]; then
-  bashio::log.debug "Logging full config on startup for debugging..."
-  loki_args+=("-print-config-stderr=true")
+    bashio::log.debug "Logging full config on startup for debugging..."
+    loki_args+=("-print-config-stderr=true")
 fi
 
 bashio::log.info "Handing over control to Loki..."
