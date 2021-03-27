@@ -7,7 +7,7 @@
   "description": "Loki for Home Assistant",
   "startup": "system",
   "map": ["share", "ssl"],
-  "watchdog": "[PROTO:ssl]://[HOST]:[PORT:3100]/ready",
+  "watchdog": "http://[HOST]:3101/ready",
   "ports": {
     "3100/tcp": null
   },
