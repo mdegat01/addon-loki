@@ -25,7 +25,7 @@ bashio::log.info "Loki log level set to ${log_level}"
 
 loki_args=(
     "-config.file=${loki_config}"
-    "-server.http_listen_address=127.0.0.1"
+    "-server.http-listen-address=127.0.0.1"
     "-server.http-listen-port=80" 
     "-log.level=${log_level}"
 )
