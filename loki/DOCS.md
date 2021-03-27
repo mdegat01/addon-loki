@@ -74,8 +74,9 @@ Loki. You can also see examples [here][loki-doc-examples]. I would also strongly
 recommend reading the [Loki best practices][loki-doc-best-practices] guide before
 proceeding with a custom config.
 
-**Note**: `http_listen_port` and `log_level` are set by the add-on via CLI
-params so they cannot be changed. Everything else can be configured in your file.
+**Note**: `http_listen_address`, `http_listen_port` and `log_level` are set by
+the add-on via CLI params so they cannot be changed. Everything else can be configured
+in your file.
 
 ### Option: `log_level`
 
