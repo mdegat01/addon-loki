@@ -23,7 +23,12 @@ case "$(bashio::config 'log_level')" in \
 esac;
 bashio::log.info "Loki log level set to ${log_level}"
 
-loki_args=("-config.file=${loki_config}" "-server.http-listen-port=80" "-log.level=${log_level}")
+loki_args=(
+    "-config.file=${loki_config}"
+    "-server.http_listen_address=127.0.0.1"
+    "-server.http-listen-port=80" 
+    "-log.level=${log_level}"
+)
 if [ "${log_level}" == "debug" ]; then
     bashio::log.debug "Logging full config on startup for debugging..."
     loki_args+=("-print-config-stderr=true")
