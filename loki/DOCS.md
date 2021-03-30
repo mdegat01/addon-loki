@@ -35,6 +35,7 @@ Example add-on configuration:
 ssl: true
 certfile: fullchain.pem
 keyfile: privkey.pem
+days_to_keep: 30
 log_level: info
 ```
 
