@@ -15,22 +15,14 @@ else
     bashio::log.info "Using default config"
 fi
 
-days_per_table=7
-if bashio::config.exists 'days_per_table'; then
-    days_per_table=$(bashio::config 'days_per_table')
-fi
-index_period="$((days_per_table * 24))h"
-bashio::log.info "Index period set to ${index_period}"
-export "INDEX_PERIOD=${index_period}"
-
-tables_to_keep=4
-if bashio::config.exists 'tables_to_keep'; then
-    tables_to_keep=$(bashio::config 'tables_to_keep')
+days_to_keep=30
+if bashio::config.exists 'days_to_keep'; then
+    days_to_keep=$(bashio::config 'days_to_keep')
 fi
 # Subtract one because Loki keeps one more index period then we say
 # https://grafana.com/docs/loki/latest/operations/storage/table-manager/#retention
-tables_to_keep=$((tables_to_keep - 1))
-retention_period="$((tables_to_keep * days_per_table * 24))h"
+days_to_keep=$((days_to_keep - 1))
+retention_period="$((days_to_keep * 24))h"
 bashio::log.info "Retention period set to ${retention_period}"
 export "RETENTION_PERIOD=${retention_period}"
 

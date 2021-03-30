@@ -16,8 +16,7 @@
   },
   "options": {
     "ssl": false,
-    "days_per_table": 7,
-    "tables_to_keep": 4,
+    "days_to_keep": 30,
     "log_level": "info"
   },
   "schema": {
@@ -25,8 +24,7 @@
     "certfile": "str?",
     "keyfile": "str?",
     "cafile": "str?",
-    "days_per_table": "int(0,)?",
-    "tables_to_keep": "int(2,)?",
+    "days_to_keep": "int(2,)?",
     "config_path": "str?",
     "log_level": "list(debug|info|warning|error)?"
   }
