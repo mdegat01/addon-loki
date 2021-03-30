@@ -16,8 +16,8 @@
   },
   "options": {
     "ssl": false,
-    "days_per_table": 1,
-    "tables_to_keep": 30,
+    "days_per_table": 7,
+    "tables_to_keep": 4,
     "log_level": "info"
   },
   "schema": {
