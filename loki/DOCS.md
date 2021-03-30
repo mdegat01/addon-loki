@@ -62,26 +62,16 @@ The absolute path to the CA certificate used to sign client certificates. If set
 clients will be required to present a valid client-authentication certificate to
 connect to Loki (mTLS).
 
-### Option: `days_per_table`
+### Option: `days_to_keep`
 
-Number of days of logs to keep in each index table, default is one week. Used to
-set `index.period` in [period_config][loki-docs-period-config]. See [table manager][loki-docs-table-manager]
-for more information on how Loki handles retention.
+Number of days of logs to keep, older logs will be purged from the index. If set,
+minimum is `2`, defaults to `30` if omitted.
 
-**Note**: This sets an environmental variable referenced in the [default config][addon-default-config].
-If you use `config_path` below it is ignored unless you reference the same variable.
-
-### Option: `tables_to_keep`
-
-Number of tables of logs to keep. The oldest table is deleted once the limit is
-reached. Minimum is `2` if set, defaults to `4` if omitted (i.e. one month when
-multiplied by default `days_to_keep`).
-
-This value minus one is multiplied by `days_per_table` to set `retention_period`
-in [table_manager_config][loki-docs-table-manager-config]. The minimum is because
-`0` tells Loki to keep tables indefinitely which causes the addon's disk usage
-to grow without bound. See [table manager][loki-docs-table-manager] for more
-information on how Loki handles retention.
+This value minus one is used to set `retention_period` in [table_manager_config][loki-doc-table-manager-config].
+We subtract one because Loki keeps one extra index period (`24h` in [default config][addon-default-config]).
+And the minimum exists because `0` tells Loki to keep tables indefinitely (and
+the addon to grow without bound). See [table manager][loki-doc-table-manager]
+for more information on how Loki stores data and handles retention.
 
 **Note**: This sets an environmental variable referenced in the [default config][addon-default-config].
 If you use `config_path` below it is ignored unless you reference the same variable.
@@ -283,6 +273,8 @@ SOFTWARE.
 [loki-doc-best-practices]: https://grafana.com/docs/loki/latest/best-practices/
 [loki-doc-clients]: https://grafana.com/docs/loki/latest/clients/
 [loki-doc-examples]: https://grafana.com/docs/loki/latest/configuration/examples/
+[loki-doc-table-manager]: https://grafana.com/docs/loki/latest/operations/storage/table-manager/
+[loki-doc-table-manager-config]: https://grafana.com/docs/loki/latest/configuration/#table_manager_config
 [loki-in-grafana]: https://grafana.com/docs/loki/latest/getting-started/grafana
 [mdegat01]: https://github.com/mdegat01
 [promtail-doc-installation]: https://grafana.com/docs/loki/latest/clients/promtail/installation/
