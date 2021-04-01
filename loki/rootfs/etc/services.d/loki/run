@@ -37,7 +37,7 @@ loki_args=(
     "-config.expand-env=true"
     "-config.file=${loki_config}"
     "-server.http-listen-address=127.0.0.1"
-    "-server.http-listen-port=80" 
+    "-server.http-listen-port=8080" 
     "-log.level=${log_level}"
 )
 if [ "${log_level}" == "debug" ]; then
