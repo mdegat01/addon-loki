@@ -38,3 +38,14 @@ if bashio::config.true 'ssl'; then
 else
     mv /etc/nginx/servers/direct.disabled /etc/nginx/servers/direct.conf
 fi
+
+# make folders
+mkdir -p \
+    /var/lib/nginx \
+    /var/tmp/nginx
+
+# permissions
+chown -R loki:loki \
+    /etc/nginx \
+    /var/lib/nginx \
+    /var/tmp/nginx
