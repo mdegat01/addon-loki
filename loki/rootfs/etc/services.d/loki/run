@@ -46,4 +46,4 @@ if [ "${log_level}" == "debug" ]; then
 fi
 
 bashio::log.info "Handing over control to Loki..."
-exec s6-setuidgid loki loki "${loki_args[@]}"
+loki "${loki_args[@]}"

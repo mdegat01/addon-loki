@@ -44,9 +44,7 @@ RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 COPY rootfs /
 RUN set -eux; \
-    mkdir -p /data/loki; \
-    addgroup -S loki; \
-    adduser -u 12345 -h /data/loki -D -S loki -G loki;
+    mkdir -p /data/loki;
 WORKDIR /data/loki
 
 # Build arguments
