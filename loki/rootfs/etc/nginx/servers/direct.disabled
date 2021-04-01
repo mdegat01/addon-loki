@@ -4,7 +4,5 @@ server {
     include /etc/nginx/includes/server_params.conf;
     include /etc/nginx/includes/proxy_params.conf;
 
-    location / {
-        proxy_pass http://backend;
-    }
+    include /etc/nginx/includes/locations.conf;
 }
