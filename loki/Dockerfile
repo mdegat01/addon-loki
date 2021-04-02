@@ -36,7 +36,11 @@ RUN set -eux; \
     update-ca-certificates; \
     nginx -v; \
     rm -f -r /etc/nginx; \
-    mkdir -p /var/log/nginx; \
+    mkdir -p \
+        /var/log/nginx \
+        /var/lib/nginx \
+        /var/tmp/nginx \
+        ; \
     touch /var/log/nginx/error.log;
 
 # See https://github.com/grafana/loki/issues/1928
