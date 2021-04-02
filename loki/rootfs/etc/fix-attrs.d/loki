@@ -1,3 +1,0 @@
-/data/loki true loki 0755 0755
-/var/lib/nginx true loki 0755 0755
-/var/tmp/nginx true loki 0755 0755
