@@ -265,7 +265,7 @@ SOFTWARE.
 [contributors]: https://github.com/mdegat01/addon-loki/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
 [forum-centralcommand]: https://community.home-assistant.io/u/CentralCommand/?u=CentralCommand
-[forum]: https://community.home-assistant.io?u=CentralCommand
+[forum]: https://community.home-assistant.io/t/home-assistant-add-on-loki/293731?u=CentralCommand
 [grafana]: https://grafana.com/oss/grafana/
 [issue]: https://github.com/mdegat01/addon-loki/issues
 [logcli]: https://grafana.com/docs/loki/latest/getting-started/logcli/
