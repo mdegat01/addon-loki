@@ -1,9 +1,10 @@
 # https://github.com/hassio-addons/addon-base/releases
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.5
 
-# https://github.com/grafana/loki/releases
+# https://hub.docker.com/_/alpine
 FROM alpine:3.13.4 as build
-ENV LOKI_VERSION 2.2.0
+# https://github.com/grafana/loki/releases
+ENV LOKI_VERSION 2.2.1
 
 RUN set -eux; \
     apk update; \
@@ -26,7 +27,7 @@ RUN set -eux; \
 
 
 # hadolint ignore=DL3006
-FROM $BUILD_FROM
+FROM ${BUILD_FROM}
 
 # add Nginx
 # hadolint ignore=DL3009
