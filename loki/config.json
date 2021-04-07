@@ -26,6 +26,6 @@
     "cafile": "str?",
     "days_to_keep": "int(2,)?",
     "config_path": "str?",
-    "log_level": "list(debug|info|warning|error)?"
+    "log_level": "list(trace|debug|info|notice|warning|error|fatal)?"
   }
 }
