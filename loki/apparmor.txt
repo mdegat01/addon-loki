@@ -1,0 +1,97 @@
+include <tunables/global>
+
+profile promtail flags=(attach_disconnected,mediate_deleted) {
+  include <abstractions/base>
+
+  # Send signals to children
+  signal (send) set=(kill,term,int,hup,cont),
+
+  # User setup
+  capability setuid -> abc,
+  capability setgid -> 12345,
+
+  # S6-Overlay
+  /init rix,
+  /bin/** rix,
+  /usr/bin/** rix,
+  /etc/s6/** rix,
+  /run/s6/** rwix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /etc/fix-attrs.d/** rw,
+  /run/** rwk,
+  /dev/tty rw,
+  /etc/** r,
+  /dev/null k,
+
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rw,
+
+  # Options.json & addon data
+  /data/** (rw chmod chown),
+
+  # Needed for setup
+  /etc/promtail/** rw,
+  /share/** r,
+  /ssl/** r,
+  /var/log/journal** r,
+  /var/lib/nginx/** (chmod chown),
+  /var/tmp/nginx/** (chmod chown),
+
+  # Programs
+  /usr/bin/loki cx,
+  /usr/sbin/nginx Cx,
+
+  # Shell access
+  owner @{HOME}/* rw,
+
+  profile /usr/bin/loki flags=(complain,attach_disconnected,mediate_deleted) {
+    include <abstractions/base>
+    
+    # Receive signals from S6-Overlay
+    signal receive,
+
+    # Send & receive tcp traffic
+    network tcp,
+
+    # Executables
+    /bin/** rix,
+    /usr/bin/** rix,
+
+    # Addon data
+    /data/** r,
+    /data/loki/** rw,
+
+    # Config
+    /etc/loki/* r,
+    /share/** r,
+  }
+
+  profile /usr/sbin/nginx flags=(complain,attach_disconnected,mediate_deleted) {
+    include <abstractions/base>
+
+    # Receive signals from S6-Overlay
+    signal receive,
+
+    # Send & receive tcp traffic
+    network tcp,
+
+    # Executables
+    /bin/** rix,
+    /usr/bin/** rix,
+
+    # Config files
+    /etc/nginx/* r,
+    /ssl/** r,
+
+    # App data
+    /var/log/nginx/** rw,
+    /var/lib/nginx/tmp/** rw,
+    /var/tmp/nginx/** rw,
+    /var/lib/nginx/** r,
+    /usr/share/nginx/** r,
+    /usr/lib/nginx/** r,
+  }
+}
