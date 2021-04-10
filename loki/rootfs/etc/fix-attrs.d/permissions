@@ -1,3 +1,6 @@
 /data/loki true abc 0755 0755
+/etc/nginx true abc 0755 0755
 /var/lib/nginx true abc 0755 0755
-/var/tmp/nginx true abc 0755 0755
+/var/log/nginx true abc 0755 0755
+/usr/lib/nginx true abc 0755 0755
+/usr/share/nginx true abc 0755 0755
