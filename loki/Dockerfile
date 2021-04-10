@@ -41,9 +41,13 @@ RUN set -eux; \
     nginx -v; \
     rm -f -r /etc/nginx; \
     mkdir -p \
+        /var/lib/nginx/tmp/client_body \
+        /var/lib/nginx/tmp/fastcgi \
+        /var/lib/nginx/tmp/proxy \
+        /var/lib/nginx/tmp/scgi \
+        /var/lib/nginx/tmp/uwsgi \
         /var/log/nginx \
-        /var/lib/nginx \
-        /var/tmp/nginx \
+        /run/nginx \
         ; \
     touch /var/log/nginx/error.log;
 

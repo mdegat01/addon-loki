@@ -50,4 +50,4 @@ fi
 
 bashio::log.info "Handing over control to Loki..."
 exec s6-setuidgid abc \
-    loki "${loki_args[@]}"
+    /usr/bin/loki "${loki_args[@]}"
