@@ -59,9 +59,11 @@ The private key file to use for SSL.
 
 ### Option: `cafile`
 
-The absolute path to the CA certificate used to sign client certificates. If set,
-clients will be required to present a valid client-authentication certificate to
-connect to Loki (mTLS).
+The CA certificate file used to sign client certificates. If set,cclients will
+be required to present a valid client-authentication certificate to connect to
+Loki (mTLS).
+
+**Note**: _The file MUST be stored in `/ssl/`, which is the default_
 
 ### Option: `days_to_keep`
 
