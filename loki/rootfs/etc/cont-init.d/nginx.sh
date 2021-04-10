@@ -15,8 +15,20 @@ if bashio::config.true 'ssl'; then
     certfile=$(bashio::config 'certfile')
     keyfile=$(bashio::config 'keyfile')
 
-    if bashio::config.exists 'cafile'; then
+    if ! bashio::config.is_empty 'cafile'; then
         bashio::log.info 'Setting up mTLS...'
+        cafile=$(bashio::config 'cafile')
+
+        # Absolute path support deprecated 4/21 for release 1.5.0.
+        # Wait until at least 5/21 to remove
+        if [[ $cafile =~ ^\/ ]]; then
+            bashio::log.warning "Providing an absolute path for 'cafile' is deprecated."
+            bashio::log.warning "Support for absolute paths will be removed in a future release."
+            bashio::log.warning "Please put your CA file in /ssl and provide a relative path."
+        else
+            cafile="/ssl/${cafile}"
+        fi
+
         if ! bashio::fs.file_exists "$(bashio::config 'cafile')"; then
 	        bashio::log.fatal
 	        bashio::log.fatal "The file specified for 'cafile' does not exist!"
