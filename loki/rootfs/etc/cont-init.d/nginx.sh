@@ -4,6 +4,8 @@
 # Home Assistant Add-on: Loki
 # This file configures nginx
 # ==============================================================================
+readonly NGINX_SERVERS=/etc/nginx/servers
+readonly NGINX_CONF="${NGINX_SERVERS}/direct.conf"
 declare certfile
 declare keyfile
 
@@ -37,14 +39,14 @@ if bashio::config.true 'ssl'; then
 	        bashio::exit.nok
 	    fi
 	
-	    mv /etc/nginx/servers/direct-mtls.disabled /etc/nginx/servers/direct.conf
-	    sed -i "s#%%cafile%%#${cafile}#g" /etc/nginx/servers/direct.conf
+	    mv "${NGINX_SERVERS}/direct-mtls.disabled" "${NGINX_CONF}"
+	    sed -i "s#%%cafile%%#${cafile}#g" "${NGINX_CONF}"
     else
-        mv /etc/nginx/servers/direct-ssl.disabled /etc/nginx/servers/direct.conf
+        mv "${NGINX_SERVERS}/direct-ssl.disabled" "${NGINX_CONF}"
     fi
 	    
-    sed -i "s#%%certfile%%#${certfile}#g" /etc/nginx/servers/direct.conf
-    sed -i "s#%%keyfile%%#${keyfile}#g" /etc/nginx/servers/direct.conf
+    sed -i "s#%%certfile%%#${certfile}#g" "${NGINX_CONF}"
+    sed -i "s#%%keyfile%%#${keyfile}#g" "${NGINX_CONF}"
 else
-    mv /etc/nginx/servers/direct.disabled /etc/nginx/servers/direct.conf
+    mv "${NGINX_SERVERS}/direct.disabled" "${NGINX_CONF}"
 fi
