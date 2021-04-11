@@ -5,8 +5,11 @@
 # Runs Loki
 # ==============================================================================
 
-bashio::log.info 'Starting Loki...'
+readonly BIND_ADDR=127.0.0.1
+readonly HTTP_PORT=8080
 loki_config='/etc/loki/default-config.yaml'
+
+bashio::log.info 'Starting Loki...'
 
 if bashio::config.exists 'config_path'; then
     loki_config=$(bashio::config 'config_path')
@@ -39,8 +42,8 @@ bashio::log.info "Loki log level set to ${log_level}"
 loki_args=(
     "-config.expand-env=true"
     "-config.file=${loki_config}"
-    "-server.http-listen-address=127.0.0.1"
-    "-server.http-listen-port=8080" 
+    "-server.http-listen-address=${BIND_ADDR}"
+    "-server.http-listen-port=${HTTP_PORT}" 
     "-log.level=${log_level}"
 )
 if [ "${log_level}" == "debug" ]; then
