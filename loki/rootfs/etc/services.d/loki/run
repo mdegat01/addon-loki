@@ -7,6 +7,7 @@
 
 readonly BIND_ADDR=127.0.0.1
 readonly HTTP_PORT=8080
+declare log_level
 loki_config='/etc/loki/default-config.yaml'
 
 bashio::log.info 'Starting Loki...'
