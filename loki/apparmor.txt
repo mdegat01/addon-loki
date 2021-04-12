@@ -71,10 +71,6 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     # Send & receive tcp traffic
     network tcp,
 
-    # Executables
-    /bin/**                           rix,
-    /usr/bin/**                       rix,
-
     # Addon data
     /data/**                          r,
     /data/loki/**                     rwk,
@@ -84,6 +80,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     /share/**                         r,
 
     # Runtime usage
+    /usr/bin/loki                     rm,
     @{etc_ro}/hosts                   r,
     @{etc_ro}/resolv.conf             r,
     @{etc_ro}/nsswitch.conf           r,
@@ -107,10 +104,6 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     capability setuid,
     capability setgid,
     ptrace (read) peer=*_loki,
-
-    # Executables
-    /bin/**                           rix,
-    /usr/bin/**                       rix,
 
     # Config files
     @{etc_ro}/nginx/**                r,
