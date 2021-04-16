@@ -2,7 +2,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.5
 
 # https://hub.docker.com/_/alpine
-FROM alpine:3.13.4 as build
+FROM alpine:3.13.5 as build
 # https://github.com/grafana/loki/releases
 ENV LOKI_VERSION 2.2.1
 
@@ -20,17 +20,18 @@ RUN set -eux; \
         aarch64) BINARCH='arm64' ;; \
         *) echo >&2 "error: unsupported architecture ($APKARCH)"; exit 1 ;; \
     esac; \
-    curl -J -L -o /tmp/loki.zip "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${BINARCH}.zip"; \
+    curl -J -L -o /tmp/loki.zip \
+        "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${BINARCH}.zip"; \
     unzip /tmp/loki.zip -d /usr/bin; \
     mv /usr/bin/loki-linux-${BINARCH} /usr/bin/loki; \
-    chmod a+x /usr/bin/loki;
+    chmod a+x /usr/bin/loki; \
+    rm /tmp/loki.zip;
 
 
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
 # add Nginx
-# hadolint ignore=DL3009
 RUN set -eux; \
     apk update; \
     apk add --no-cache \
@@ -49,21 +50,22 @@ RUN set -eux; \
         /var/log/nginx \
         /run/nginx \
         ; \
-    touch /var/log/nginx/error.log;
+    touch /var/log/nginx/error.log; \
+    \
+    echo "Add user for Loki"; \
+    mkdir -p /data/loki; \
+    addgroup -S abc; \
+    adduser -u 12345 -h /data/loki -D -S abc -G abc;
 
 # See https://github.com/grafana/loki/issues/1928
 RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 # Add Loki
 COPY --from=build /usr/bin/loki /usr/bin/loki
-
-WORKDIR /data/loki
-RUN set -eux; \
-    loki --version; \
-    addgroup -S abc; \
-    adduser -u 12345 -h /data/loki -D -S abc -G abc;
+RUN loki --version
 
 COPY rootfs /
+WORKDIR /data/loki
 
 # Build arguments
 ARG BUILD_ARCH
