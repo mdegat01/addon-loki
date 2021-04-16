@@ -1,5 +1,5 @@
 # https://github.com/hassio-addons/addon-base/releases
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.5
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.7
 
 # https://hub.docker.com/_/alpine
 FROM alpine:3.13.5 as build
