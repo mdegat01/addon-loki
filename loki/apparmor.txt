@@ -2,9 +2,9 @@ include <tunables/global>
 
 # Docker overlay
 @{fs_root}=/ /docker/overlay2/*/diff/
-@{do_etc_rw}=@{fs_root}/@{etc_rw}/
-@{do_etc_ro}=@{fs_root}/@{etc_ro}/
-@{do_run}=@{fs_root}/@{run}/
+@{do_etc}=@{fs_root}/etc/
+@{do_opt}=@{fs_root}/opt/
+@{do_run}=@{fs_root}/{run,var/run}/
 @{do_usr}=@{fs_root}/usr/
 @{do_var}=@{fs_root}/var/
 
@@ -13,6 +13,7 @@ include <tunables/global>
 
 profile loki flags=(attach_disconnected,mediate_deleted) {
   include <abstractions/base>
+  include <abstractions/bash>
 
   # Send signals to children
   signal (send) set=(kill,term,int,hup,cont),
@@ -27,48 +28,43 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   capability setgid,
 
   # S6-Overlay
-  /init                             rix,
-  /bin/**                           rix,
-  /usr/bin/**                       rix,
-  @{do_etc_ro}/s6/**                rix,
-  @{do_etc_rw}/services.d/{,**}     rwix,
-  @{do_etc_rw}/cont-init.d/{,**}    rwix,
-  @{do_etc_rw}/cont-finish.d/{,**}  rwix,
-  @{do_etc_rw}/fix-attrs.d/{,**}    rw,
-  @{do_run}/s6/**                   rwix,
-  @{do_run}/**                      rwk,
-  /dev/tty                          rw,
-  @{do_usr}/lib/locale/{,**}        r,
-  @{do_etc_ro}/group                r,
-  @{do_etc_ro}/passwd               r,
-  @{do_etc_ro}/hosts                r,
-  @{do_etc_ro}/ssl/openssl.cnf      r,
-  /dev/null                         k,
+  /init                          rix,
+  /bin/**                        rix,
+  /usr/bin/**                    rix,
+  @{do_etc}/s6/**                rix,
+  @{do_etc}/services.d/{,**}     rwix,
+  @{do_etc}/cont-init.d/{,**}    rwix,
+  @{do_etc}/cont-finish.d/{,**}  rwix,
+  @{do_etc}/fix-attrs.d/{,**}    rw,
+  @{do_run}/s6/**                rwix,
+  @{do_run}/**                   rwk,
+  /dev/tty                       rw,
+  @{do_usr}/lib/locale/{,**}     r,
+  @{do_etc}/group                r,
+  @{do_etc}/passwd               r,
+  @{do_etc}/hosts                r,
+  @{do_etc}/ssl/openssl.cnf      r,
+  /dev/null                      k,
 
   # Bashio
-  /usr/lib/bashio/**                ix,
-  /tmp/**                           rw,
+  /usr/lib/bashio/**             ix,
+  /tmp/**                        rw,
 
   # Options.json & addon data
-  /data                             r,
-  /data/**                          rw,
+  /data                          r,
+  /data/**                       rw,
 
   # Needed for setup
-  @{do_etc_rw}/loki/{,**}           rw,
-  @{do_etc_rw}/nginx/{,**}          rw,
-  @{nginx_data}/{,**}               rw,
-  @{do_var}/log/nginx/{,**}         rw,
-  /share/{,**}                      r,
-  /ssl/{,**}                        r,
+  @{do_etc}/loki/{,**}           rw,
+  @{do_etc}/nginx/{,**}          rw,
+  @{nginx_data}/{,**}            rw,
+  @{do_var}/log/nginx/{,**}      rw,
+  /share/{,**}                   r,
+  /ssl/{,**}                     r,
 
   # Programs
-  /usr/bin/loki                     cx,
-  /usr/sbin/nginx                   Cx,
-
-  # Shell access
-  owner @{HOME}/.*                  rw,
-  @{do_etc_ro}/inputrc              r,
-  @{do_etc_ro}/terminfo/x/xterm-256color r,
+  /usr/bin/loki                  cx,
+  /usr/sbin/nginx                Cx,
 
   profile /usr/bin/loki flags=(attach_disconnected,mediate_deleted) {
     include <abstractions/base>
@@ -85,14 +81,14 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     /data/loki/**                   rwk,
 
     # Config
-    @{do_etc_ro}/loki/*             r,
+    @{do_etc}/loki/*                r,
     /share/**                       r,
 
     # Runtime usage
     /usr/bin/loki                   rm,
-    @{do_etc_ro}/hosts              r,
-    @{do_etc_ro}/resolv.conf        r,
-    @{do_etc_ro}/nsswitch.conf      r,
+    @{do_etc}/hosts                 r,
+    @{do_etc}/resolv.conf           r,
+    @{do_etc}/nsswitch.conf         r,
     @{PROC}/sys/net/core/somaxconn  r,
     @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
   }
@@ -115,20 +111,20 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     ptrace (read) peer=*_loki,
 
     # Config files
-    @{do_etc_ro}/nginx/**           r,
-    /ssl/**                         r,
+    @{do_etc}/nginx/**           r,
+    /ssl/**                      r,
 
     # Service data
-    @{nginx_data}/**                r,
-    @{do_var}/lib/nginx/tmp/**      rw,
-    @{do_var}/log/nginx/*           w,
+    @{nginx_data}/**             r,
+    @{do_var}/lib/nginx/tmp/**   rw,
+    @{do_var}/log/nginx/*        w,
 
     # Runtime usage
-    /usr/sbin/nginx                 rm,
-    @{do_etc_ro}/group              r,
-    @{do_etc_ro}/passwd             r,
-    @{do_etc_ro}/ssl/openssl.cnf    r,
-    @{do_run}/nginx.pid             rw,
-    @{PROC}/1/fd/1                  w,
+    /usr/sbin/nginx              rm,
+    @{do_etc}/group              r,
+    @{do_etc}/passwd             r,
+    @{do_etc}/ssl/openssl.cnf    r,
+    @{do_run}/nginx.pid          rw,
+    @{PROC}/1/fd/1               w,
   }
 }
