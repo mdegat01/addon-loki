@@ -11,5 +11,7 @@ server {
     ssl_client_certificate %%cafile%%;
     ssl_verify_client on;
 
-    include /etc/nginx/includes/locations.conf;
+    location / {
+        proxy_pass http://backend;
+    }
 }
