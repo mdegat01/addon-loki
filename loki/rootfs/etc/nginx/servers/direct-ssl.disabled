@@ -8,5 +8,7 @@ server {
     ssl_certificate /ssl/%%certfile%%;
     ssl_certificate_key /ssl/%%keyfile%%;
 
-    include /etc/nginx/includes/locations.conf;
+    location / {
+        proxy_pass http://backend;
+    }
 }
