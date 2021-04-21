@@ -81,6 +81,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     network tcp,
     network udp,
     network netlink raw,
+    network unix dgram,
 
     # Addon data
     /data/**                        r,
