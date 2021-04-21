@@ -15,10 +15,8 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   include <abstractions/base>
   include <abstractions/bash>
 
-  # Signalling - Receive from above, signal children and ourselves
-  signal (receive) peer=unconfined,
-  signal (send) peer=@{profile_name}//**,
-  signal peer=@{profile_name},
+  # Send signals to child services
+  signal (send) peer=@{profile_name}//*,
 
   # Network access
   network tcp,
@@ -64,16 +62,14 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   /{share,ssl}/{,**}                          r,
 
   # Programs
-  /usr/bin/loki                               cx,
-  /usr/sbin/nginx                             Cx,
+  /usr/bin/loki                               cx -> loki,
+  /usr/sbin/nginx                             Cx -> nginx,
 
-  profile /usr/bin/loki flags=(attach_disconnected,mediate_deleted) {
+  profile loki flags=(attach_disconnected,mediate_deleted) {
     include <abstractions/base>
 
-    # Signalling - receive from above, signal ourselves
-    signal (receive) peer=unconfined,
+    # Receive signals from s6
     signal (receive) peer=*_loki,
-    signal peer=@{profile_name},
 
     # Network access
     network tcp,
@@ -97,13 +93,11 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
   }
 
-  profile /usr/sbin/nginx flags=(attach_disconnected,mediate_deleted) {
+  profile nginx flags=(attach_disconnected,mediate_deleted) {
     include <abstractions/base>
 
-    # Signalling - receive from above, signal ourselves
-    signal (receive) peer=unconfined,
+    # Receive signals from s6
     signal (receive) peer=*_loki,
-    signal peer=@{profile_name},
 
     # Network access
     network tcp,
