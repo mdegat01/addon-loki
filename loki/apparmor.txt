@@ -18,6 +18,10 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   # Send signals to children
   signal (send) set=(kill,term,int,hup,cont),
 
+  # Network access
+  network tcp,
+  network udp,
+
   # Capabilities
   capability kill,
   capability dac_override,
@@ -73,8 +77,10 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     signal receive,
     signal peer=@{profile_name},
 
-    # Send & receive tcp traffic
+    # Network access
     network tcp,
+    network udp,
+    network netlink raw,
 
     # Addon data
     /data/**                        r,
@@ -100,7 +106,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     signal receive peer=*_loki,
     signal peer=@{profile_name},
 
-    # Send & receive tcp traffic
+    # Network access
     network tcp,
 
     # Capabilities
