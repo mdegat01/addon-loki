@@ -1,5 +1,4 @@
-# https://github.com/hassio-addons/addon-base/releases
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.7
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64
 
 # https://hub.docker.com/_/alpine
 FROM alpine:3.13.5 as build
@@ -28,8 +27,8 @@ RUN set -eux; \
     rm /tmp/loki.zip;
 
 
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+# https://github.com/hassio-addons/addon-base/releases
+FROM ${BUILD_FROM}:9.2.0
 
 # add Nginx
 RUN set -eux; \
