@@ -35,7 +35,7 @@ RUN set -eux; \
     apk update; \
     apk add --no-cache \
         ca-certificates=20191127-r5 \
-        nginx=1.18.0-r14 \
+        nginx=1.18.0-r15 \
         ; \
     update-ca-certificates; \
     nginx -v; \
