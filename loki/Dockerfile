@@ -9,7 +9,7 @@ RUN set -eux; \
     apk update; \
     apk add --no-cache --virtual .build-deps \
         unzip=6.0-r8 \
-        curl=7.77.0-r0 \
+        curl=7.77.0-r1 \
         ; \
     APKARCH="$(apk --print-arch)"; \
     case "$APKARCH" in \
@@ -35,7 +35,7 @@ RUN set -eux; \
     apk update; \
     apk add --no-cache \
         ca-certificates=20191127-r5 \
-        nginx=1.18.0-r14 \
+        nginx=1.18.0-r15 \
         ; \
     update-ca-certificates; \
     nginx -v; \
