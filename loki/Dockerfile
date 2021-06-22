@@ -8,7 +8,7 @@ ENV LOKI_VERSION 2.2.1
 RUN set -eux; \
     apk update; \
     apk add --no-cache --virtual .build-deps \
-        unzip=6.0-r8 \
+        unzip=6.0-r9 \
         curl=7.77.0-r1 \
         ; \
     APKARCH="$(apk --print-arch)"; \
