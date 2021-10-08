@@ -28,7 +28,7 @@ RUN set -eux; \
 
 
 # https://github.com/hassio-addons/addon-base/releases
-FROM ${BUILD_FROM}:10.1.0
+FROM ${BUILD_FROM}:10.1.1
 
 # add Nginx
 RUN set -eux; \
