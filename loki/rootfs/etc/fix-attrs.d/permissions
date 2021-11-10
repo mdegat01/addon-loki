@@ -4,4 +4,3 @@
 /var/log/nginx true abc 0755 0755
 /usr/lib/nginx true abc 0755 0755
 /usr/share/nginx true abc 0755 0755
-/run/s6/services/loki/wal true abc 0755 0755
