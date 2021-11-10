@@ -65,7 +65,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   /usr/bin/loki                               cx -> loki,
   /usr/sbin/nginx                             Cx -> nginx,
 
-  profile loki flags=(attach_disconnected,mediate_deleted) {
+  profile loki flags=(attach_disconnected,mediate_deleted,complain) {
     include <abstractions/base>
 
     # Receive signals from s6
