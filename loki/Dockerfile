@@ -48,6 +48,7 @@ RUN set -eux; \
         /var/lib/nginx/tmp/uwsgi \
         /var/log/nginx \
         /run/nginx \
+        /run/s6/services/loki/wal/ \
         ; \
     touch /var/log/nginx/error.log; \
     \
