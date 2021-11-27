@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64
 
 # https://hub.docker.com/_/alpine
-FROM alpine:3.14.3 as build
+FROM alpine:3.15.0 as build
 # https://github.com/grafana/loki/releases
 ENV LOKI_VERSION 2.4.1
 
@@ -9,7 +9,7 @@ RUN set -eux; \
     apk update; \
     apk add --no-cache --virtual .build-deps \
         unzip=6.0-r9 \
-        curl=7.79.1-r0 \
+        curl=7.80.0-r0 \
         ; \
     APKARCH="$(apk --print-arch)"; \
     case "$APKARCH" in \
@@ -35,7 +35,7 @@ RUN set -eux; \
     apk update; \
     apk add --no-cache \
         ca-certificates=20191127-r5 \
-        nginx=1.20.1-r3 \
+        nginx=1.20.2-r0 \
         ; \
     update-ca-certificates; \
     nginx -v; \
