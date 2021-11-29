@@ -28,13 +28,13 @@ RUN set -eux; \
 
 
 # https://github.com/hassio-addons/addon-base/releases
-FROM ${BUILD_FROM}:10.2.3
+FROM ${BUILD_FROM}:11.0.0
 
 # add Nginx
 RUN set -eux; \
     apk update; \
     apk add --no-cache \
-        ca-certificates=20191127-r5 \
+        ca-certificates=20191127-r7 \
         nginx=1.20.2-r0 \
         ; \
     update-ca-certificates; \
