@@ -87,7 +87,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     /share/**                                 r,
 
     # Runtime usage
-    /tmp/marker-view-**                       rw,
+    owner /tmp/**                             rwk,
     /usr/bin/loki                             rm,
     @{do_etc}/hosts                           r,
     @{do_etc}/{nsswitch,resolv}.conf          r,
