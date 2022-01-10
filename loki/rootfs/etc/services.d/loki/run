@@ -19,13 +19,7 @@ else
     bashio::log.info "Using default config"
 fi
 
-days_to_keep=30
-if bashio::config.exists 'days_to_keep'; then
-    days_to_keep=$(bashio::config 'days_to_keep')
-fi
-# Subtract one because Loki keeps one more index period then we say
-# https://grafana.com/docs/loki/latest/operations/storage/table-manager/#retention
-retention_period="$((days_to_keep - 1))d"
+retention_period="$(bashio::config 'days_to_keep' 1)d"
 bashio::log.info "Retention period set to ${retention_period}"
 export "RETENTION_PERIOD=${retention_period}"
 

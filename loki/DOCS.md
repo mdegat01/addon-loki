@@ -68,13 +68,11 @@ Loki (mTLS).
 ### Option: `days_to_keep`
 
 Number of days of logs to keep, older logs will be purged from the index. If set,
-minimum is `2`, defaults to `30` if omitted.
+minimum is `1`, defaults to `30` if omitted.
 
-This value minus one is used to set `retention_period` in [table_manager_config][loki-doc-table-manager-config].
-We subtract one because Loki keeps one extra index period (`24h` in [default config][addon-default-config]).
-And the minimum exists because `0` tells Loki to keep tables indefinitely (and
-the addon to grow without bound). See [table manager][loki-doc-table-manager]
-for more information on how Loki stores data and handles retention.
+The minimum exists because `0` tells Loki to keep tables indefinitely (and the
+addon to grow without bound). See [retention][loki-doc-retention] for more information
+on how Loki's Compactor handles retention.
 
 **Note**: This sets an environmental variable referenced in the [default config][addon-default-config].
 If you use `config_path` below it is ignored unless you reference the same variable.
