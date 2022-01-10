@@ -52,7 +52,7 @@ check [the contributor's page][contributors].
 
 MIT License
 
-Copyright (c) 2021 mdegat01
+Copyright (c) 2021-2022 Mike Degatano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -94,7 +94,7 @@ SOFTWARE.
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/mdegat01/addon-loki/issues
 [license-shield]: https://img.shields.io/github/license/mdegat01/addon-loki.svg
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [releases-shield]: https://img.shields.io/github/release/mdegat01/addon-loki.svg
 [releases]: https://github.com/mdegat01/addon-loki/releases
