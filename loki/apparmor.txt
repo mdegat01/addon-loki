@@ -44,6 +44,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   /dev/tty                                    rw,
   @{do_usr}/lib/locale/{,**}                  r,
   @{do_etc}/ssl/openssl.cnf                   r,
+  @{do_etc}/ssl1.1/openssl.cnf                r,
   @{do_etc}/{group,hosts,passwd,resolv.conf}  r,
   /dev/null                                   k,
 
@@ -86,6 +87,7 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     /share/**                                 r,
 
     # Runtime usage
+    /tmp/marker-view-**                       rw,
     /usr/bin/loki                             rm,
     @{do_etc}/hosts                           r,
     @{do_etc}/{nsswitch,resolv}.conf          r,
@@ -127,5 +129,6 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
     /usr/sbin/nginx                           rm,
     @{do_etc}/{group,passwd}                  r,
     @{do_etc}/ssl/openssl.cnf                 r,
+    @{do_etc}/ssl1.1/openssl.cnf              r,
   }
 }
