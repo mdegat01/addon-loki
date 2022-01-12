@@ -3,7 +3,7 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64
 # https://hub.docker.com/_/alpine
 FROM alpine:3.15.0 as build
 # https://github.com/grafana/loki/releases
-ENV LOKI_VERSION 2.4.1
+ENV LOKI_VERSION 2.4.2
 
 RUN set -eux; \
     apk update; \
