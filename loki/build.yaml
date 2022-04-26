@@ -4,3 +4,6 @@ build_from:
   armhf: ghcr.io/hassio-addons/base/armhf:11.1.2
   armv7: ghcr.io/hassio-addons/base/armv7:11.1.2
   aarch64: ghcr.io/hassio-addons/base/aarch64:11.1.2
+codenotary:
+  base_image: codenotary@frenck.dev
+  signer: codenotary@degatano.com

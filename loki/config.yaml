@@ -9,6 +9,7 @@ arch:
   - armv7
   - armhf
 description: Loki for Home Assistant
+codenotary: codenotary@degatano.com
 startup: system
 map:
   - share
