@@ -58,7 +58,6 @@ RUN set -eux; \
     adduser -u 12345 -h /data/loki -D -S abc -G abc; \
     \
     chown -R abc:abc \
-        /etc/nginx \
         /usr/lib/nginx \
         /usr/share/nginx \
         /var/lib/nginx \
