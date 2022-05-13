@@ -55,7 +55,15 @@ RUN set -eux; \
     echo "Add user for Loki"; \
     mkdir -p /data/loki; \
     addgroup -S abc; \
-    adduser -u 12345 -h /data/loki -D -S abc -G abc;
+    adduser -u 12345 -h /data/loki -D -S abc -G abc; \
+    \
+    chown -R abc:abc \
+        /etc/nginx \
+        /usr/lib/nginx \
+        /usr/share/nginx \
+        /var/lib/nginx \
+        /var/log/nginx \
+        ;
 
 # See https://github.com/grafana/loki/issues/1928
 RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
@@ -64,7 +72,7 @@ RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 COPY --from=build /usr/bin/loki /usr/bin/loki
 RUN loki --version
 
-COPY rootfs /
+COPY --chown=abc:abc rootfs /
 WORKDIR /data/loki
 
 # Build arguments
