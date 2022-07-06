@@ -23,12 +23,13 @@ RUN set -eux; \
         aarch64) BINARCH='arm64' ;; \
         *) echo >&2 "error: unsupported architecture ($APKARCH)"; exit 1 ;; \
     esac; \
-    curl -J -L -o /tmp/loki.zip \
+    curl -s -J -L -o /tmp/loki.zip \
         "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${BINARCH}.zip"; \
     unzip /tmp/loki.zip -d /usr/bin; \
     mv /usr/bin/loki-linux-${BINARCH} /usr/bin/loki; \
     chmod a+x /usr/bin/loki; \
     rm /tmp/loki.zip; \
+    apk del .build-deps; \
     loki --version; \
     \
     apk add --no-cache \
@@ -59,10 +60,10 @@ RUN set -eux; \
         /usr/share/nginx \
         /var/lib/nginx \
         /var/log/nginx \
-        ; \
-    \
-    [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf;
-    # See https://github.com/grafana/loki/issues/1928 for why we need to do this
+        ;
+
+# See https://github.com/grafana/loki/issues/1928
+RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf    
 
 COPY --chown=abc:abc rootfs /
 WORKDIR /data/loki
