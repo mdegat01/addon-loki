@@ -1,15 +1,18 @@
+# https://github.com/hassio-addons/addon-base/releases
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64
 
-# https://hub.docker.com/_/alpine
-FROM alpine:3.15.4 as build
-# https://github.com/grafana/loki/releases
-ENV LOKI_VERSION 2.5.0
+# hadolint ignore=DL3006
+FROM ${BUILD_FROM}
 
+# https://github.com/grafana/loki/releases
+ARG LOKI_VERSION=2.5.0
+
+# add Loki and Nginx
 RUN set -eux; \
     apk update; \
+    \
     apk add --no-cache --virtual .build-deps \
         unzip=6.0-r9 \
-        curl=7.80.0-r1 \
         ; \
     APKARCH="$(apk --print-arch)"; \
     case "$APKARCH" in \
@@ -19,21 +22,15 @@ RUN set -eux; \
         aarch64) BINARCH='arm64' ;; \
         *) echo >&2 "error: unsupported architecture ($APKARCH)"; exit 1 ;; \
     esac; \
-    curl -J -L -o /tmp/loki.zip \
+    curl -s -J -L -o /tmp/loki.zip \
         "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${BINARCH}.zip"; \
     unzip /tmp/loki.zip -d /usr/bin; \
     mv /usr/bin/loki-linux-${BINARCH} /usr/bin/loki; \
     chmod a+x /usr/bin/loki; \
-    rm /tmp/loki.zip;
-
-
-# https://github.com/hassio-addons/addon-base/releases
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
-
-# add Nginx
-RUN set -eux; \
-    apk update; \
+    rm /tmp/loki.zip; \
+    apk del .build-deps; \
+    loki --version; \
+    \
     apk add --no-cache \
         ca-certificates=20211220-r0 \
         nginx=1.20.2-r1 \
@@ -65,11 +62,7 @@ RUN set -eux; \
         ;
 
 # See https://github.com/grafana/loki/issues/1928
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
-
-# Add Loki
-COPY --from=build /usr/bin/loki /usr/bin/loki
-RUN loki --version
+RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf    
 
 COPY --chown=abc:abc rootfs /
 WORKDIR /data/loki
