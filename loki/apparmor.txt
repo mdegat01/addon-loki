@@ -50,6 +50,8 @@ profile loki flags=(attach_disconnected,mediate_deleted) {
   @{do_etc}/ssl1.1/openssl.cnf                r,
   @{do_etc}/{group,hosts,passwd,resolv.conf}  r,
   /dev/null                                   k,
+  # Needed for v2, not v3
+  @{do_etc}/s6/**                         rix,
 
   # Bashio
   /usr/lib/bashio/**                          ix,
