@@ -29,7 +29,6 @@ RUN set -eux; \
     chmod a+x /usr/bin/loki; \
     rm /tmp/loki.zip; \
     apk del .build-deps; \
-    loki --version; \
     \
     apk add --no-cache \
         ca-certificates=20211220-r0 \
