@@ -7,3 +7,5 @@ build_from:
 codenotary:
   base_image: codenotary@frenck.dev
   signer: codenotary@degatano.com
+args:
+  LOKI_VERSION: 2.6.1
