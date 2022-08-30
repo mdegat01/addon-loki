@@ -31,8 +31,8 @@ RUN set -eux; \
     apk del .build-deps; \
     \
     apk add --no-cache \
-        ca-certificates=20211220-r0 \
-        nginx=1.20.2-r1 \
+        ca-certificates=20220614-r0 \
+        nginx=1.22.0-r1 \
         ; \
     update-ca-certificates; \
     nginx -v; \
