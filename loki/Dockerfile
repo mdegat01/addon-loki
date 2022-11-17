@@ -32,7 +32,7 @@ RUN set -eux; \
     \
     apk add --no-cache \
         ca-certificates=20220614-r0 \
-        nginx=1.22.0-r1 \
+        nginx=1.22.1-r0 \
         ; \
     update-ca-certificates; \
     nginx -v; \
